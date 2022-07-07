@@ -1,0 +1,27 @@
+{
+  "name": "nico-analytics",
+  "version": "1.0.0",
+  "description": "Nico Analytics includes features that can help users identify trends and patterns in how visitors engage with their websites. Features enable data collection, analysis, monitoring, and visualization.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bohdan3645/nico-analytics.git"
+  },
+  "author": "bohdan3645, Boeho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bohdan3645/nico-analytics/issues"
+  },
+  "homepage": "https://github.com/bohdan3645/nico-analytics#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
