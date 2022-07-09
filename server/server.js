@@ -5,12 +5,14 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(__dirname + '/client'));
 
 const PORT = process.env.PORT || 4000;
 
 //import routes
-const testRoute = require('./routes/testRoute');
+const websites = require('./routes/websites');
 
-app.use('/', testRoute);
+app.use('/', websites);
 
 app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)});
