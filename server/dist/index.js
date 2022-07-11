@@ -1,3 +1,7 @@
+"use strict";
+
+require('dotenv').config();
+
 const express = require('express');
 
 const cors = require('cors');
@@ -15,7 +19,10 @@ const PORT = process.env.PORT || 4000; //import routes
 
 const websites = require('./routes/websites');
 
+const visits = require('./routes/visits');
+
 app.use('/', websites);
+app.use('/', visits);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

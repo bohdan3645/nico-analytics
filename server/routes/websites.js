@@ -13,7 +13,7 @@ router.get('/websites', async(req, res) => {
 router.post('/websites', async(req, res) => {
     const websiteUrl = req.body.url;
     await pool.connect();
-    pool.query(`INSERT INTO websites (url) VALUES ('${websiteUrl}')`, (err, result) => {
+    pool.query(`INSERT INTO websites (hostname) VALUES ('${websiteUrl}')`, (err, result) => {
         if(err) throw err;
         res.send({ message: `${websiteUrl} SUCCESSFULLY ADDED!` });
     });
