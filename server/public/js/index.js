@@ -24,7 +24,7 @@ const deleteTest = async(id) => {
 
 getTest().then(result => {
     result.forEach(row => {
-        const text = row.url;
+        const text = row.hostname;
         const site = document.createElement('p');
         site.innerHTML = text;
         const delbutton = document.createElement('span');
