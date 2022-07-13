@@ -1,20 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles/index.css">
-    <script type="module" src="./js/index.js"></script>
-    <title>Nico Analytics</title>
-</head>
-<body>
-    <h1>Nico Analytics Dashboard</h1>
-    <div id="data"></div>
-  
-    <form id="form" class="form" action="http://localhost:4000/websites" method="post">
-        <input type="text" name="url" required>
-        <button type="submit">submit</button>
-    </form>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./styles/index.css" />
+        <script type="module" src="./js/pages/dashboardPage.js" defer></script>
+        <title>Nico Analytics</title>
+    </head>
+    <body>
+        <header class="header">
+            <h1>Nico Analytics Dashboard</h1>
+            <button id="open-form" class="button" type="button">
+                Add website
+            </button>
+        </header>
+        <main>
+            <section class="websites__container">
+                <ul id="websites"></ul>
+            </section>
+            <section id="form-modal" class="form__container">
+                <form id="form" class="form">
+                    <h2>Add website</h2>
+                    <div class="form__main">
+                        <label for="hostname-input" hidden
+                            >Enter your domain name.</label
+                        >
+                        <input
+                            type="text"
+                            id="hostname-input"
+                            name="hostname"
+                            required
+                            autocomplete="off"
+                        />
+                        <button class="button" type="submit">submit</button>
+                    </div>
+                    <button id="close-form" class="button--round" type="button">
+                        X
+                    </button>
+                </form>
+            </section>
+        </main>
+    </body>
 </html>

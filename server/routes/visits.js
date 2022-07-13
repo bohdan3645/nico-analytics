@@ -1,29 +1,48 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const pool = require('../database/connect');
+const pool = require("../database/connect");
 
-router.post('/visit', async(req, res) => {
+router.post("/visits", async (req, res) => {
+    const websiteId = req.body.id;
+
+    await pool.connect();
+
+    try {
+        const websiteData = await pool.query(`
+            SELECT visits.id, visits.date, clients.id as client_id, clients.ip as client_ip
+            FROM visits
+            JOIN clients ON visits.id_client = clients.id
+            WHERE id_website = '${websiteId}'
+        `);
+
+        res.send(websiteData);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.post("/visit", async (req, res) => {
     const ip = req.body.ip;
     const host = req.body.host;
 
     await pool.connect();
 
-    try{
+    try {
         //  get website id
         const websiteId = await pool.query(`
-            SELECT id
+            SELECT manual_id
             FROM websites
             WHERE hostname = '${host}';
         `);
 
-        if(websiteId.rows.length >= 1) {
+        if (websiteId.rows.length >= 1) {
             //  add new client to db if unique
             await pool.query(`
                 INSERT INTO clients (ip)
                 VALUES ('${ip}')
                 ON CONFLICT DO NOTHING;
             `);
-            
+
             //  get client id
             const clientId = await pool.query(`
                 SELECT id
@@ -34,18 +53,19 @@ router.post('/visit', async(req, res) => {
             //  add new visit
             await pool.query(`
                 INSERT INTO visits (id_website, id_client)
-                VALUES (${websiteId.rows[0].id}, ${clientId.rows[0].id});
+                VALUES (${websiteId.rows[0].manual_id}, ${clientId.rows[0].id});
             `);
 
-            res.send({ message: 'VISIT SUCCESSFULLY REGISTERED :)' });
+            res.send({ message: "VISIT SUCCESSFULLY REGISTERED :)" });
         } else {
-            res.send({ message: 'WEBSITE IS NOT REGISTERED ON NICO ANALITYCS :(' });
-        };
-    } catch(err) {
+            res.send({
+                message: "WEBSITE IS NOT REGISTERED ON NICO ANALITYCS :(",
+            });
+        }
+    } catch (err) {
         console.log(err);
-        res.send({ message: 'VISIT REGISTRATION FAILED :('})
-    };
-
+        res.send({ message: "VISIT REGISTRATION FAILED :(" });
+    }
 });
 
 module.exports = router;
