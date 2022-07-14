@@ -10,16 +10,39 @@
             href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap"
             rel="stylesheet"
         />
+        <script
+            src="https://kit.fontawesome.com/a415c85e06.js"
+            crossorigin="anonymous"
+        ></script>
         <link rel="stylesheet" href="./styles/index.css" />
         <script type="module" src="./js/pages/websitePage.js" defer></script>
         <title>Nico Analytics - Website</title>
     </head>
     <body>
-        <header>
+        <header class="header">
             <h1>Website</h1>
+            <button id="open-options" class="button" type="button">
+                Options
+            </button>
         </header>
-        <main>
-            <table id="table"></table>
+        <main class="main">
+            <section id="table-container" class="table__container"></section>
+            <section id="options-modal" class="modal__container">
+                <form id="options-form" class="form__container">
+                    <h2>Options</h2>
+                    <div class="options-form__main">
+                        <div id="table-options" class="table__options"></div>
+                        <button class="button" type="submit">Apply</button>
+                    </div>
+                    <button
+                        id="close-options"
+                        class="button--round close--form"
+                        type="button"
+                    >
+                        X
+                    </button>
+                </form>
+            </section>
         </main>
     </body>
 </html>

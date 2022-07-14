@@ -1,6 +1,7 @@
 @import "./reset.css";
 
 :root {
+    --primary-clr: antiquewhite;
     --secondary-clr-500: #444;
     --secondary-clr-600: #555;
     --secondary-clr-700: #666;
@@ -8,7 +9,7 @@
 
 body {
     font-family: "Germania One", cursive;
-    color: antiquewhite;
+    color: var(--primary-clr);
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
@@ -17,7 +18,7 @@ body {
 
 h1 {
     font-size: 2.5rem;
-    margin-block: 2rem;
+    margin-block: 1rem;
     font-weight: bold;
 }
 
@@ -27,30 +28,19 @@ h2 {
     font-weight: bold;
 }
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    position: relative;
-}
-
-table,
-th,
-td {
-    border: 1px solid var(--secondary-clr-700);
-    padding: 1rem 2rem;
-}
-
-th {
-    background-color: var(--secondary-clr-600);
-}
-
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-inline: 2rem;
+    padding-top: 2rem;
 }
 
+.main {
+    margin-inline: 2rem;
+}
+
+/* ---------- BUTTONS ---------- */
 .button {
     color: inherit;
     border: none;
@@ -94,6 +84,7 @@ th {
     transition: none;
 }
 
+/* ---------- SPINNER ---------- */
 .spinner__container {
     position: absolute;
     inset: 0;
@@ -120,6 +111,7 @@ th {
     }
 }
 
+/* ---------- DASHBOARD HOME PAGE ---------- */
 .websites__container {
     position: relative;
     display: flex;
@@ -127,7 +119,6 @@ th {
     gap: 20px;
     margin-block: 20px;
     list-style: none;
-    margin-inline: 2rem;
 }
 
 .website__item {
@@ -149,6 +140,10 @@ th {
     font-size: 1.5rem;
 }
 
+.website__item:hover {
+    background-color: var(--secondary-clr-600);
+}
+
 .dell--button {
     position: absolute;
     top: 50%;
@@ -156,12 +151,30 @@ th {
     transform: translateY(-50%);
 }
 
-.website__item:hover {
+/* --------- TABLE ---------- */
+.table__container {
+    position: relative;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    position: relative;
+}
+
+table,
+th,
+td {
+    border: 1px solid var(--secondary-clr-700);
+    padding: 1rem 2rem;
+}
+
+th {
     background-color: var(--secondary-clr-600);
 }
 
 /* --------- FORM MODAL ----------*/
-.form__container {
+.modal__container {
     display: none;
     position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
@@ -171,22 +184,28 @@ th {
     left: 0;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.form__container form {
+.form__container {
     position: relative;
     background-color: var(--secondary-clr-500);
     padding: 3rem 2rem;
 }
 
+.form__container .close--form {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+/* ---------- ADD WEBSITE FORM ---------- */
 .form__main {
     display: flex;
     gap: 20px;
     height: 60px;
 }
 
-.form__container input {
+.form__container input[type="text"] {
     min-width: 300px;
     background-color: inherit;
     height: 100%;
@@ -197,8 +216,38 @@ th {
     color: inherit;
 }
 
-.form__container #close-form {
-    position: absolute;
-    top: 0;
-    right: 0;
+/* ---------- OPTIONS FORM ---------- */
+
+.options-form__main {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: end;
+}
+
+.table__options {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.table__options div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ---------- CHECKBOX ---------- */
+input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox {
+    color: var(--secondary-clr-700);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked ~ .checkbox {
+    color: rgb(255, 94, 94);
 }

@@ -10,6 +10,10 @@
             href="https://fonts.googleapis.com/css2?family=Germania+One&display=swap"
             rel="stylesheet"
         />
+        <script
+            src="https://kit.fontawesome.com/a415c85e06.js"
+            crossorigin="anonymous"
+        ></script>
         <link rel="stylesheet" href="./styles/index.css" />
         <script type="module" src="./js/pages/dashboardPage.js" defer></script>
         <title>Nico Analytics</title>
@@ -21,12 +25,12 @@
                 Add website
             </button>
         </header>
-        <main>
+        <main class="main">
             <section class="websites__container">
                 <ul id="websites"></ul>
             </section>
-            <section id="form-modal" class="form__container">
-                <form id="form" class="form">
+            <section id="form-modal" class="modal__container">
+                <form id="form" class="form__container">
                     <h2>Add website</h2>
                     <div class="form__main">
                         <label for="hostname-input" hidden
@@ -41,7 +45,11 @@
                         />
                         <button class="button" type="submit">submit</button>
                     </div>
-                    <button id="close-form" class="button--round" type="button">
+                    <button
+                        id="close-form"
+                        class="button--round close--form"
+                        type="button"
+                    >
                         X
                     </button>
                 </form>

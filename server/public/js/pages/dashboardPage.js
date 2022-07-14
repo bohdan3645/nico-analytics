@@ -2,6 +2,7 @@ import getWebsitesList from "../dbRequests/getWebsitesList.js";
 import addWebsite from "../dbRequests/addWebsite.js";
 import deleteWebsite from "../dbRequests/deleteWebsite.js";
 import fetchWithLoadingIndication from "../helpers/loadingSpinner.js";
+import modal from "../helpers/modal.js";
 
 const websitesContainer = document.querySelector("#websites");
 const openFormBtn = document.querySelector("#open-form");
@@ -9,13 +10,7 @@ const closeFormBtn = document.querySelector("#close-form");
 const formModal = document.querySelector("#form-modal");
 const form = document.querySelector("#form");
 
-const openForm = () => {
-    formModal.style.display = "flex";
-};
-
-const closeForm = () => {
-    formModal.style.display = "none";
-};
+const closeModal = modal(formModal, openFormBtn, closeFormBtn);
 
 const deleteWebsiteItem = (e, id) => {
     const websiteItem = e.target.parentElement;
@@ -28,16 +23,12 @@ const deleteWebsiteItem = (e, id) => {
     fetchWithLoadingIndication(websiteItem, deleteWeb);
 };
 
-openFormBtn.addEventListener("click", openForm);
-
-closeFormBtn.addEventListener("click", closeForm);
-
 const mountWebsiteItemIntoList = (hostname, id, node) => {
     const listItem = document.createElement("li");
     listItem.classList.add("website__item");
 
     const link = document.createElement("a");
-    link.innerHTML = hostname;
+    link.innerHTML = '<i class="fa-solid fa-earth-europe"></i>  ' + hostname;
     link.setAttribute("href", `./website.html?id=${id}`);
 
     const delbutton = document.createElement("button");
@@ -64,16 +55,16 @@ const fetchAndMountWebsites = async () => {
 
 fetchWithLoadingIndication(websitesContainer, fetchAndMountWebsites);
 
-const tt = async () => {
+const AddNewWebsite = async () => {
     const id = Date.now();
     const hostname = form.hostname.value;
     const result = await addWebsite(hostname, id);
-    closeForm();
+    closeModal();
     mountWebsiteItemIntoList(hostname, id, websitesContainer);
     console.log(result);
 };
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    fetchWithLoadingIndication(form, tt);
+    fetchWithLoadingIndication(form, AddNewWebsite);
 });
