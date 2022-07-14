@@ -30,6 +30,12 @@ const mountTable = (data) => {
 
     //create table head
     const tableHeadRow = document.createElement("tr");
+
+    //add row number column
+    const tableRowNoCol = document.createElement("th");
+    tableRowNoCol.innerHTML = "no.";
+    tableHeadRow.appendChild(tableRowNoCol);
+
     for (const key in data[0]) {
         const tableHead = document.createElement("th");
         tableHead.innerHTML = key;
@@ -38,8 +44,14 @@ const mountTable = (data) => {
     table.appendChild(tableHeadRow);
 
     //fill table with data
-    data.forEach((row) => {
+    data.forEach((row, i) => {
         const tableRow = document.createElement("tr");
+
+        //add row nomber
+        const tableRowNo = document.createElement("td");
+        tableRowNo.innerHTML = i + 1;
+        tableRow.appendChild(tableRowNo);
+
         for (const key_1 in row) {
             const tableData = document.createElement("td");
             tableData.innerHTML = row[key_1];

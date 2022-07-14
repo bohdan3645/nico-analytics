@@ -47,7 +47,7 @@ const fetchAndMountWebsites = async () => {
     websites.forEach((website) => {
         mountWebsiteItemIntoList(
             website.hostname,
-            website.manual_id,
+            website.id,
             websitesContainer
         );
     });

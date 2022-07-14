@@ -2,6 +2,7 @@
 
 :root {
     --primary-clr: antiquewhite;
+    --secondary-clr-400: rgb(63, 63, 63);
     --secondary-clr-500: #444;
     --secondary-clr-600: #555;
     --secondary-clr-700: #666;
@@ -38,6 +39,24 @@ h2 {
 
 .main {
     margin-inline: 2rem;
+}
+
+/* ---------- SCROLLBAR ---------- */
+::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--secondary-clr-400);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-clr-600);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--secondary-clr-700);
 }
 
 /* ---------- BUTTONS ---------- */
@@ -153,7 +172,9 @@ h2 {
 
 /* --------- TABLE ---------- */
 .table__container {
+    min-height: 50px;
     position: relative;
+    overflow-x: auto;
 }
 
 table {
@@ -167,6 +188,7 @@ th,
 td {
     border: 1px solid var(--secondary-clr-700);
     padding: 1rem 2rem;
+    white-space: nowrap;
 }
 
 th {

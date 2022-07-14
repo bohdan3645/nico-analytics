@@ -9,10 +9,11 @@ router.post("/visits", async (req, res) => {
 
     try {
         const websiteData = await pool.query(`
-            SELECT visits.id, visits.date, clients.id as client_id, clients.ip as client_ip
+            SELECT visits.id_client AS clinet_id, clients.ip AS client_ip, visits.date, visits.time, visits.time_zone_offset, visits.languages, visits.primary_language, visits.platform
             FROM visits
             JOIN clients ON visits.id_client = clients.id
             WHERE id_website = '${websiteId}'
+            ORDER BY visits.timestamp DESC
         `);
 
         res.send(websiteData);
@@ -23,16 +24,22 @@ router.post("/visits", async (req, res) => {
 
 router.post("/visit", async (req, res) => {
     const ip = req.body.ip;
-    const host = req.body.host;
+    const hostname = req.body.hostname;
+    const date = req.body.date;
+    const time = req.body.time;
+    const timeZoneOffset = req.body.timeZoneOffset;
+    const languages = req.body.languages;
+    const primaryLanguage = req.body.primaryLanguage;
+    const platform = req.body.platform;
 
     await pool.connect();
 
     try {
         //  get website id
         const websiteId = await pool.query(`
-            SELECT manual_id
+            SELECT id
             FROM websites
-            WHERE hostname = '${host}';
+            WHERE hostname = '${hostname}';
         `);
 
         if (websiteId.rows.length >= 1) {
@@ -52,8 +59,8 @@ router.post("/visit", async (req, res) => {
 
             //  add new visit
             await pool.query(`
-                INSERT INTO visits (id_website, id_client)
-                VALUES (${websiteId.rows[0].manual_id}, ${clientId.rows[0].id});
+                INSERT INTO visits (id_website, id_client, date, time, time_zone_offset, languages, primary_language, platform)
+                VALUES (${websiteId.rows[0].id}, ${clientId.rows[0].id}, '${date}', '${time}', '${timeZoneOffset}', '${languages}', '${primaryLanguage}', '${platform}');
             `);
 
             res.send({ message: "VISIT SUCCESSFULLY REGISTERED :)" });

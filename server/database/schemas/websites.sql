@@ -1,5 +1,4 @@
 CREATE TABLE websites (
-    id SERIAL NOT NULL PRIMARY KEY,
-    manual_id BIGINT NOT NULL,
-    name VARCHAR(255) NOT NULL
+    id BIGINT NOT NULL PRIMARY KEY,
+    hostname VARCHAR(255) NOT NULL
 );

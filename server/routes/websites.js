@@ -15,7 +15,7 @@ router.post("/websites", async (req, res) => {
     const websiteId = req.body.id;
     await pool.connect();
     pool.query(
-        `INSERT INTO websites (hostname, manual_id) VALUES ('${websiteUrl}', ${websiteId})`,
+        `INSERT INTO websites (hostname, id) VALUES ('${websiteUrl}', ${websiteId})`,
         (err, result) => {
             if (err) throw err;
             res.send({ message: `${websiteUrl} SUCCESSFULLY ADDED!` });
@@ -26,7 +26,7 @@ router.post("/websites", async (req, res) => {
 router.delete("/websites", async (req, res) => {
     const id = req.body.id;
     await pool.connect();
-    pool.query(`DELETE FROM websites WHERE manual_id=${id}`, (err, result) => {
+    pool.query(`DELETE FROM websites WHERE id=${id}`, (err, result) => {
         if (err) throw err;
         res.send({ message: "WEBSITE SUCCESSFULLY DELETED!" });
     });
