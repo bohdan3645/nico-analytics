@@ -29,7 +29,7 @@ const mountWebsiteItemIntoList = (hostname, id, node) => {
 
     const link = document.createElement("a");
     link.innerHTML = '<i class="fa-solid fa-earth-europe"></i>  ' + hostname;
-    link.setAttribute("href", `./website.html?id=${id}`);
+    link.setAttribute("href", `./website.html?id=${id}&hostname=${hostname}`);
 
     const delbutton = document.createElement("button");
     delbutton.classList.add("button--round", "dell--button");

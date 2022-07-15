@@ -9,7 +9,15 @@ router.post("/visits", async (req, res) => {
 
     try {
         const websiteData = await pool.query(`
-            SELECT visits.id_client AS clinet_id, clients.ip AS client_ip, visits.date, visits.time, visits.time_zone_offset, visits.languages, visits.primary_language, visits.platform
+            SELECT 
+                visits.id_client AS clinet_id, 
+                clients.ip AS client_ip, 
+                visits.date, 
+                visits.time, 
+                visits.time_zone_offset, 
+                visits.languages, 
+                visits.primary_language, 
+                visits.platform
             FROM visits
             JOIN clients ON visits.id_client = clients.id
             WHERE id_website = '${websiteId}'
@@ -59,8 +67,25 @@ router.post("/visit", async (req, res) => {
 
             //  add new visit
             await pool.query(`
-                INSERT INTO visits (id_website, id_client, date, time, time_zone_offset, languages, primary_language, platform)
-                VALUES (${websiteId.rows[0].id}, ${clientId.rows[0].id}, '${date}', '${time}', '${timeZoneOffset}', '${languages}', '${primaryLanguage}', '${platform}');
+                INSERT INTO visits (
+                    id_website, 
+                    id_client, 
+                    date, 
+                    time, 
+                    time_zone_offset, 
+                    languages, 
+                    primary_language, 
+                    platform
+                )
+                VALUES (
+                    ${websiteId.rows[0].id}, 
+                    ${clientId.rows[0].id}, 
+                    '${date}', '${time}', 
+                    '${timeZoneOffset}', 
+                    '${languages}', 
+                    '${primaryLanguage}', 
+                    '${platform}'
+                );
             `);
 
             res.send({ message: "VISIT SUCCESSFULLY REGISTERED :)" });

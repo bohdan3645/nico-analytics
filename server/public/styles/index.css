@@ -2,6 +2,7 @@
 
 :root {
     --primary-clr: antiquewhite;
+    --primary-clr-500: rgb(255, 94, 94);
     --secondary-clr-400: rgb(63, 63, 63);
     --secondary-clr-500: #444;
     --secondary-clr-600: #555;
@@ -9,7 +10,6 @@
 }
 
 body {
-    font-family: "Germania One", cursive;
     color: var(--primary-clr);
     max-width: 1200px;
     margin: 0 auto;
@@ -18,6 +18,7 @@ body {
 }
 
 h1 {
+    font-family: "Germania One", cursive;
     font-size: 2.5rem;
     margin-block: 1rem;
     font-weight: bold;
@@ -39,6 +40,22 @@ h2 {
 
 .main {
     margin-inline: 2rem;
+}
+
+/* ---------- BREADCRUMBS ---------- */
+.breadcrumb__container {
+    margin-block: 1rem;
+    font-size: 1.5rem;
+}
+
+.highlited--link {
+    color: var(--primary-clr-500);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.highlited--link:hover {
+    text-decoration: underline;
 }
 
 /* ---------- SCROLLBAR ---------- */
@@ -271,5 +288,5 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked ~ .checkbox {
-    color: rgb(255, 94, 94);
+    color: var(--primary-clr-500);
 }

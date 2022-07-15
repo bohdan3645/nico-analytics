@@ -2,6 +2,8 @@ import getWebsiteData from "../dbRequests/getWebsiteData.js";
 import fetchWithLoadingIndication from "../helpers/loadingSpinner.js";
 import modal from "../helpers/modal.js";
 
+const breadcrumbContainer = document.querySelector("#breadcrumb");
+const websiteHostnameHeading = document.querySelector("#website-hostname");
 const optionsForm = document.querySelector("#options-form");
 const optionsModal = document.querySelector("#options-modal");
 const openOptionsbtn = document.querySelector("#open-options");
@@ -11,6 +13,26 @@ const tableContainer = document.querySelector("#table-container");
 
 const params = new URLSearchParams(document.location.search);
 const websiteId = params.get("id");
+const websiteHostname = params.get("hostname");
+
+//set page heading to current website hostname
+websiteHostnameHeading.innerHTML = websiteHostname;
+
+//create breadcrumb
+const createBreadcrumb = (node) => {
+    const currentWebsite = document.createElement("span");
+    currentWebsite.innerHTML = websiteHostname;
+    const websitesLink = document.createElement("a");
+    websitesLink.classList.add("highlited--link");
+    websitesLink.setAttribute("href", "http://localhost:4000/");
+    websitesLink.innerHTML = "websites";
+
+    node.append(websitesLink, " > ", currentWebsite);
+};
+
+(() => {
+    createBreadcrumb(breadcrumbContainer);
+})();
 
 let fetchedWebsiteData;
 
@@ -90,7 +112,7 @@ const mountOptions = (data) => {
 
 const fetchAndMountTable = async () => {
     const result = await getWebsiteData(websiteId);
-    fetchedWebsiteData = result; // <<< save data in global var for later use
+    fetchedWebsiteData = result; // <<< save data to global var for later use
     mountTable(result);
     mountOptions(result);
 };
