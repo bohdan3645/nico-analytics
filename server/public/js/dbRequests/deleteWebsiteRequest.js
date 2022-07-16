@@ -1,4 +1,4 @@
-const deleteWebsite = async (id) => {
+const deleteWebsiteRequest = async (id) => {
     const url = "http://localhost:4000/websites";
     const response = await fetch(url, {
         method: "DELETE",
@@ -9,4 +9,4 @@ const deleteWebsite = async (id) => {
     return responseJson.message;
 };
 
-export default deleteWebsite;
+export default deleteWebsiteRequest;

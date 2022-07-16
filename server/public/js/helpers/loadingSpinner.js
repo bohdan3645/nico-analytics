@@ -23,12 +23,4 @@ class Spinner {
     }
 }
 
-const fetchWithLoadingIndication = (node, fetchFunc) => {
-    const spinner = new Spinner();
-    spinner.mount(node);
-    fetchFunc().then(() => {
-        spinner.unmount();
-    });
-};
-
-export default fetchWithLoadingIndication;
+export default Spinner;

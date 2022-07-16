@@ -187,6 +187,10 @@ h2 {
     transform: translateY(-50%);
 }
 
+.website--link :first-child {
+    margin-right: 10px;
+}
+
 /* --------- TABLE ---------- */
 .table__container {
     min-height: 50px;

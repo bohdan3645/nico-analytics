@@ -1,4 +1,4 @@
-const addWebsite = async (hostname, id) => {
+const addWebsiteRequest = async (hostname, id) => {
     const url = "http://localhost:4000/websites";
     const response = await fetch(url, {
         method: "POST",
@@ -9,4 +9,4 @@ const addWebsite = async (hostname, id) => {
     return responseJson.message;
 };
 
-export default addWebsite;
+export default addWebsiteRequest;

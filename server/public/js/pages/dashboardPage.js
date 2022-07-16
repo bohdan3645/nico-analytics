@@ -1,8 +1,9 @@
-import getWebsitesList from "../dbRequests/getWebsitesList.js";
-import addWebsite from "../dbRequests/addWebsite.js";
-import deleteWebsite from "../dbRequests/deleteWebsite.js";
-import fetchWithLoadingIndication from "../helpers/loadingSpinner.js";
+import getWebsitesListRequest from "../dbRequests/getWebsitesListRequest.js";
+import addWebsiteRequest from "../dbRequests/addWebsiteRequest.js";
+import deleteWebsiteRequest from "../dbRequests/deleteWebsiteRequest.js";
+import fetchWithLoadingIndication from "../features/fetchWithLoadingIndication.js";
 import modal from "../helpers/modal.js";
+import mountWebsitesListItem from "../features/websitesListItem.js";
 
 const websitesContainer = document.querySelector("#websites");
 const openFormBtn = document.querySelector("#open-form");
@@ -12,59 +13,42 @@ const form = document.querySelector("#form");
 
 const closeModal = modal(formModal, openFormBtn, closeFormBtn);
 
-const deleteWebsiteItem = (e, id) => {
-    const websiteItem = e.target.parentElement;
-    const deleteWeb = async () => {
-        const result = await deleteWebsite(id);
-        websiteItem.remove();
-        console.log(result);
-    };
-
-    fetchWithLoadingIndication(websiteItem, deleteWeb);
+const deleteWebsiteFromDOM = async (listItem, id) => {
+    const result = await deleteWebsiteRequest(id);
+    listItem.remove();
+    console.log(result);
 };
 
-const mountWebsiteItemIntoList = (hostname, id, node) => {
-    const listItem = document.createElement("li");
-    listItem.classList.add("website__item");
-
-    const link = document.createElement("a");
-    link.innerHTML = '<i class="fa-solid fa-earth-europe"></i>  ' + hostname;
-    link.setAttribute("href", `./website.html?id=${id}&hostname=${hostname}`);
-
-    const delbutton = document.createElement("button");
-    delbutton.classList.add("button--round", "dell--button");
-    delbutton.setAttribute("type", "button");
-    delbutton.innerHTML = "X";
-    delbutton.addEventListener("click", (e) => deleteWebsiteItem(e, id));
-
-    listItem.appendChild(link);
-    listItem.appendChild(delbutton);
-    node.appendChild(listItem);
+const deleteWebsiteItem = (listItem, id) => {
+    fetchWithLoadingIndication(listItem, deleteWebsiteFromDOM, [listItem, id]);
 };
 
-const fetchAndMountWebsites = async () => {
-    const websites = await getWebsitesList();
+const mountWebsitesToDOM = async (container, delFunc) => {
+    const websites = await getWebsitesListRequest();
     websites.forEach((website) => {
-        mountWebsiteItemIntoList(
-            website.hostname,
-            website.id,
-            websitesContainer
-        );
+        mountWebsitesListItem(website.hostname, website.id, container, delFunc);
     });
 };
 
-fetchWithLoadingIndication(websitesContainer, fetchAndMountWebsites);
+fetchWithLoadingIndication(websitesContainer, mountWebsitesToDOM, [
+    websitesContainer,
+    deleteWebsiteItem,
+]);
 
-const AddNewWebsite = async () => {
+const AddNewWebsite = async (hostname, container, delFunc) => {
     const id = Date.now();
-    const hostname = form.hostname.value;
-    const result = await addWebsite(hostname, id);
+    const result = await addWebsiteRequest(hostname, id);
     closeModal();
-    mountWebsiteItemIntoList(hostname, id, websitesContainer);
+    mountWebsitesListItem(hostname, id, container, delFunc);
     console.log(result);
 };
 
 form.addEventListener("submit", (e) => {
     e.preventDefault();
-    fetchWithLoadingIndication(form, AddNewWebsite);
+    fetchWithLoadingIndication(e.target, AddNewWebsite, [
+        e.target.hostname.value,
+        websitesContainer,
+        deleteWebsiteItem,
+    ]);
+    e.target.hostname.value = "";
 });
